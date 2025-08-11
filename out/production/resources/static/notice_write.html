@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공지사항 작성 - 내 블로그</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- 헤더 -->
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <a href="index.html">내 블로그</a>
+      </div>
+
+      <nav class="nav desktop-nav">
+        <a href="index.html" class="nav-link">홈</a>
+        <a href="notice.html" class="nav-link">공지사항</a>
+        <a href="post.html" class="nav-link">끄적이기</a>
+        <a href="profile.html" class="nav-link">프로필</a>
+        <a href="settings.html" class="nav-link">설정</a>
+      </nav>
+
+      <div class="user-info" id="userInfo">
+        <div class="auth-buttons" id="authButtons">
+          <button class="btn btn-outline" onclick="showLoginModal()">로그인</button>
+          <button class="btn btn-primary" onclick="showRegisterModal()">회원가입</button>
+        </div>
+
+        <div class="user-profile hidden" id="userProfile">
+          <div class="user-avatar">
+            <img id="userAvatar" src="/placeholder.svg" alt="프로필" class="avatar">
+            <i class="fas fa-user" id="defaultAvatar"></i>
+          </div>
+          <span class="user-nickname" id="userNickname"></span>
+          <span class="user-provider" id="userProvider"></span>
+          <div class="current-time" id="currentTime"></div>
+          <button class="btn btn-ghost" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="logout-text">로그아웃</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav mobile-nav">
+      <a href="index.html" class="nav-link">홈</a>
+      <a href="notice.html" class="nav-link">공지사항</a>
+      <a href="post.html" class="nav-link">끄적이기</a>
+      <a href="profile.html" class="nav-link">프로필</a>
+      <a href="settings.html" class="nav-link">설정</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 메인 콘텐츠 -->
+<main class="main">
+  <div class="container">
+    <div class="page-header">
+      <h1>새 공지사항 작성</h1>
+      <a href="notice.html" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i>
+        목록으로
+      </a>
+    </div>
+
+    <form id="writeNoticeForm" class="write-form">
+      <div class="form-card">
+        <div class="form-group">
+          <label for="noticeTitle">제목</label>
+          <input type="text" id="noticeTitle" placeholder="공지사항 제목을 입력하세요" required>
+        </div>
+
+        <div class="form-group">
+          <label for="noticeContent">내용</label>
+          <textarea id="noticeContent" placeholder="공지사항 내용을 입력하세요" required></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a href="notice.html" class="btn btn-outline">취소</a>
+        <button type="submit" class="btn btn-danger">
+          <i class="fas fa-save"></i>
+          공지 등록
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<script src="/js/script.js"></script>
+<script src="write-notice.js"></script>
+</body>
+</html>

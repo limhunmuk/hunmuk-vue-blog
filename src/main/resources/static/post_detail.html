@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시물 상세 - 내 블로그</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- 헤더 -->
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <a href="index.html">내 블로그</a>
+      </div>
+
+      <nav class="nav desktop-nav">
+        <a href="index.html" class="nav-link">홈</a>
+        <a href="notice.html" class="nav-link">공지사항</a>
+        <a href="post.html" class="nav-link active">끄적이기</a>
+        <a href="profile.html" class="nav-link">프로필</a>
+        <a href="settings.html" class="nav-link">설정</a>
+      </nav>
+
+      <div class="user-info" id="userInfo">
+        <div class="auth-buttons" id="authButtons">
+          <button class="btn btn-outline" onclick="showLoginModal()">로그인</button>
+          <button class="btn btn-primary" onclick="showRegisterModal()">회원가입</button>
+        </div>
+
+        <div class="user-profile hidden" id="userProfile">
+          <div class="user-avatar">
+            <img id="userAvatar" src="/placeholder.svg" alt="프로필" class="avatar">
+            <i class="fas fa-user" id="defaultAvatar"></i>
+          </div>
+          <span class="user-nickname" id="userNickname"></span>
+          <span class="user-provider" id="userProvider"></span>
+          <div class="current-time" id="currentTime"></div>
+          <button class="btn btn-ghost" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="logout-text">로그아웃</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav mobile-nav">
+      <a href="index.html" class="nav-link">홈</a>
+      <a href="notice.html" class="nav-link">공지사항</a>
+      <a href="post.html" class="nav-link active">끄적이기</a>
+      <a href="profile.html" class="nav-link">프로필</a>
+      <a href="settings.html" class="nav-link">설정</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 메인 콘텐츠 -->
+<main class="main">
+  <div class="container">
+    <div class="page-header">
+      <a href="post.html" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i>
+        목록으로
+      </a>
+
+      <div class="post-actions" id="postActions" style="display: none;">
+        <button class="btn btn-outline" id="editBtn">
+          <i class="fas fa-edit"></i>
+          수정
+        </button>
+        <button class="btn btn-danger" id="deleteBtn">
+          <i class="fas fa-trash"></i>
+          삭제
+        </button>
+      </div>
+    </div>
+
+    <article class="post-detail" id="postDetail">
+      <!-- 게시물 내용이 JavaScript로 동적 생성됩니다 -->
+    </article>
+
+    <!-- 댓글 섹션 -->
+    <section class="comments-section" id="commentsSection">
+      <h3><i class="fas fa-comments"></i> 댓글 <span id="commentCount">0</span></h3>
+
+      <!-- 댓글 작성 폼 -->
+      <div class="comment-form" id="commentForm" style="display: none;">
+        <form id="addCommentForm">
+          <div class="form-group">
+            <textarea id="commentContent" placeholder="댓글을 입력하세요..." required></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i>
+              댓글 등록
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="login-required" id="loginRequired">
+        <p>댓글을 작성하려면 로그인이 필요합니다.</p>
+      </div>
+
+      <!-- 댓글 목록 -->
+      <div class="comments-list" id="commentsList">
+        <!-- 댓글들이 JavaScript로 동적 생성됩니다 -->
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- 모달들 -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>로그인</h2>
+      <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+    </div>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="loginEmail">이메일</label>
+        <input type="email" id="loginEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">비밀번호</label>
+        <div class="password-input">
+          <input type="password" id="loginPassword" required>
+          <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <div class="error-message" id="loginError"></div>
+      <button type="submit" class="btn btn-primary btn-full">로그인</button>
+    </form>
+
+    <div class="social-login">
+      <div class="divider"><span>또는</span></div>
+      <button class="btn btn-social google" onclick="socialLogin('google')">
+        <i class="fab fa-google"></i>
+        Google로 계속하기
+      </button>
+      <button class="btn btn-social github" onclick="socialLogin('github')">
+        <i class="fab fa-github"></i>
+        GitHub로 계속하기
+      </button>
+    </div>
+
+    <div class="modal-footer">
+      <p>계정이 없으신가요? <a href="#" onclick="showRegisterModal()">회원가입</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="registerModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>회원가입</h2>
+      <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+    </div>
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label for="registerEmail">이메일</label>
+        <input type="email" id="registerEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="registerNickname">닉네임</label>
+        <input type="text" id="registerNickname" required>
+      </div>
+      <div class="form-group">
+        <label for="registerPassword">비밀번호</label>
+        <div class="password-input">
+          <input type="password" id="registerPassword" required>
+          <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="registerConfirmPassword">비밀번호 확인</label>
+        <div class="password-input">
+          <input type="password" id="registerConfirmPassword" required>
+          <button type="button" class="password-toggle" onclick="togglePassword('registerConfirmPassword')">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <div class="error-message" id="registerError"></div>
+      <button type="submit" class="btn btn-primary btn-full">회원가입</button>
+    </form>
+
+    <div class="social-login">
+      <div class="divider"><span>또는</span></div>
+      <button class="btn btn-social google" onclick="socialLogin('google')">
+        <i class="fab fa-google"></i>
+        Google로 계속하기
+      </button>
+      <button class="btn btn-social github" onclick="socialLogin('github')">
+        <i class="fab fa-github"></i>
+        GitHub로 계속하기
+      </button>
+    </div>
+
+    <div class="modal-footer">
+      <p>이미 계정이 있으신가요? <a href="#" onclick="showLoginModal()">로그인</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="/js/script.js"></script>
+<script src="post-detail.js"></script>
+</body>
+</html>
