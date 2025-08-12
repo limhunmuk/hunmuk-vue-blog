@@ -1,5 +1,6 @@
 package home.hmvueblog.domain.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import home.hmvueblog.domain.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;

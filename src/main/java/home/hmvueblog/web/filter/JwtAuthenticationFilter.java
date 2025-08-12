@@ -28,12 +28,16 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
     private final ObjectMapper objectMapper;
 
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, MemberRepository memberRepository,  String defaultFilterProcessesUrl) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager,
+                                   JwtTokenUtil jwtTokenUtil,
+                                   MemberRepository memberRepository,
+                                   ObjectMapper objectMapper,
+                                   String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
         this.authenticationManager = authenticationManager;
         this.memberRepository = memberRepository;
         this.jwtTokenUtil = jwtTokenUtil;
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -59,7 +63,6 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
         System.out.println("lhm test username ==== !! " + username);
 
-
         MemberSearchDto condition = new MemberSearchDto();
         condition.setLoginId(username);
 
@@ -69,12 +72,17 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("accessToken", accessToken);
-        tokenMap.put("refreshToken", refreshToken);
-        tokenMap.put("member", new ObjectMapper().writeValueAsString(memDtl));
+        record LoginResponseDto(String accessToken,String refreshToken,MemberDetailDto memDtl){}
 
-        new ObjectMapper().writeValue(response.getWriter(), tokenMap);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json;charset=UTF-8");
+
+        LoginResponseDto body = new LoginResponseDto(accessToken,refreshToken,memDtl);
+        /**
+         * 오브젝트 매퍼는 주입받은 오브젝트 매퍼 하나만 선언 해서 사용
+         * 이중 선언하면 json 짤림 -> 발견
+         **/
+        objectMapper.writeValue(response.getWriter(), body);
     }
 
 }

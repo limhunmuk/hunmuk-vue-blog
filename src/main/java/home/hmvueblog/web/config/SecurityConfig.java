@@ -43,7 +43,7 @@ public class SecurityConfig {
 
         // 로그인 필터는 JwtAuthenticationFilter에서 처리합니다.
         JwtAuthenticationFilter jwtAuthenticationFilter =
-                new JwtAuthenticationFilter(authenticationManager(), jwtTokenUtil, userRepository,"/api/login");
+                new JwtAuthenticationFilter(authenticationManager(), jwtTokenUtil, userRepository, objectMapper,"/api/login");
 
 //        jwtAuthenticationFilter.setAuthenticationSuccessHandler(new LoginSuccessHandler(userRepository));
 

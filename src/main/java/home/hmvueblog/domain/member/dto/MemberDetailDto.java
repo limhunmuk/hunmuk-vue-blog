@@ -1,5 +1,6 @@
 package home.hmvueblog.domain.member.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import home.hmvueblog.domain.member.entity.Member;
 import lombok.Data;
 
