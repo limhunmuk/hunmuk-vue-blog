@@ -66,18 +66,18 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
         MemberSearchDto condition = new MemberSearchDto();
         condition.setLoginId(username);
 
-        Member member = memberRepository.findByLoginId(username).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        MemberDetailDto memDtl = MemberDetailDto.from(member);
+        Member mem = memberRepository.findByLoginId(username).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        MemberDetailDto member = MemberDetailDto.from(mem);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        record LoginResponseDto(String accessToken,String refreshToken,MemberDetailDto memDtl){}
+        record LoginResponseDto(String accessToken,String refreshToken,MemberDetailDto member){}
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json;charset=UTF-8");
 
-        LoginResponseDto body = new LoginResponseDto(accessToken,refreshToken,memDtl);
+        LoginResponseDto body = new LoginResponseDto(accessToken,refreshToken,member);
         /**
          * 오브젝트 매퍼는 주입받은 오브젝트 매퍼 하나만 선언 해서 사용
          * 이중 선언하면 json 짤림 -> 발견

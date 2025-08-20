@@ -41,8 +41,10 @@ const handleLogin = () => {
       console.log("========로그인 응답 ========== :");
 
       if (response.status === 200) {
-        closeModal();
+
         authStore.login(response.data.accessToken, response.data.refreshToken, response.data.member);
+
+        closeModal();
       } else {
         error.value = response.data.message || '로그인 실패';
       }

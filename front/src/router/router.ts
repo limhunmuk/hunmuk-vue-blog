@@ -5,6 +5,7 @@ import NoticeDetailView from "@/views/NoticeDetailView.vue"
 import NoticeCreateView from "@/views/NoticeCreateView.vue";
 import PostListView from "@/views/PostListView.vue";
 import PostDetailView from "@/views/PostDetailView.vue";
+import PostCreateView from '@/views/PostCreateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,7 +41,12 @@ const router = createRouter({
       name: 'postDetail',
       component: PostDetailView,
       props: true
-    }
+    },
+    {
+      path: '/post/new',
+      name: 'postCreate',
+      component: PostCreateView,
+    },
   ],
 })
 

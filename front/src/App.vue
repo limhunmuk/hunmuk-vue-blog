@@ -16,8 +16,6 @@ const openLogin = () => {
 const isLogin = ref(false); // 로그인 상태를 관리하는 변수
 const authStore = useAuthStore();
 isLogin.value = authStore.isLoggedIn; // authStore에서 로그인 상태를 가져옵니다.
-
-alert(isLogin.value ? "로그인 상태입니다.1" : "로그인 상태가 아닙니다.2");
 </script>
 <template>
   <HeaderBar @show-login="openLogin()" @show-register="showRegister = true" :loginYn="isLogin"  />

@@ -51,6 +51,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
                 .where(
                     post.delYn.eq(YNCode.N)
                 )
+                .orderBy(post.id.desc())
                 .fetch();
 
         Long totCount = queryFactory

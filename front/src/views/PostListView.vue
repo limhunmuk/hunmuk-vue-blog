@@ -18,20 +18,10 @@ interface Post {
   commentCnt?: number
 }
 
-
 const posts = ref<Post[]>([])
-
-const apiClient = axiosRequest.create({
-  baseURL: '/api',
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-
 const getPosts = () => {
 
-  apiClient.get('/post', {
+  axiosRequest.get('/post', {
   })
     .then((response) => {
     posts.value = response.data
@@ -61,16 +51,16 @@ onMounted(() => {
   <div class="posts-container">
     <div class="posts-header">
       <h1>끄적이기</h1>
-      <a href="" class="write-btn btn" id="writeBtn" style="">
+      <router-link :to="{name: 'postCreate'}" class="btn write-btn" id="writeBtn" style="">
         <i class="fas fa-pen"></i>
         글쓰기
-      </a>
+      </router-link>
     </div>
     <div id="postsList" class="posts-list">
       <!-- 게시물이 없을 때 -->
       <div v-if="posts.length === 0" class="empty-state">
         <p>아직 작성된 게시물이 없습니다.</p>
-        <router-link to="/write-post" class="btn btn-primary" style="margin-top: 1rem;">
+        <router-link to="/post/new" class="btn btn-primary" style="margin-top: 1rem;">
           첫 게시물 작성하기
         </router-link>
       </div>

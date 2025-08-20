@@ -49,6 +49,7 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
                 .where(
                     notice.delYn.eq(YNCode.N)
                 )
+                .orderBy(notice.id.desc())
                 .fetch();
 
         Long totCount = queryFactory

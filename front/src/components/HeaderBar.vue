@@ -10,7 +10,6 @@ const props = defineProps({
   }
 })
 
-alert(`로그인 여부 > ${props.loginYn}`);
 </script>
 
 <template>

@@ -48,10 +48,11 @@ export const useAuthStore = defineStore('auth', {
         login(accessToken: string, refreshToken: string, member: LoginMember) {
             this.accessToken = accessToken
             this.refreshToken = refreshToken
-            this.member = JSON.parse(member)
+            this.member = member
+
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('refreshToken', refreshToken)
-            localStorage.setItem('member', JSON.parse(member))
+            localStorage.setItem('member', JSON.stringify(this.member))
 
         },
 

@@ -47,7 +47,7 @@ onMounted(() => {
 });
 
 const goToDetail = (id: number) => {
-  router.push({ name: 'noticeListView', params: { noticeId: id } });
+  router.push({ name: 'noticeDetailView', params: { noticeId: id } });
 };
 
 const goToEdit = (id: number) => {
@@ -55,7 +55,7 @@ const goToEdit = (id: number) => {
 };
 
 const goToList = () => {
-  router.push({ name: 'noticeListView' });
+  router.push({ name: 'notice' });
 };
 
 const deleteNotice = async (id: number) => {
